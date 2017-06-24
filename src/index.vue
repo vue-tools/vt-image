@@ -47,7 +47,6 @@ export default {
             visibleRange = this.visibleRange
             offsetTop = el.offsetTop
             height = el.clientHeight
-
             return offsetTop - visibleRange < scrollTop && scrollTop < offsetTop + visibleRange + height
         },
         lazyHandler(scrollTop) {
@@ -55,7 +54,8 @@ export default {
                 return false
             }
             /* istanbul ignore next */
-            if (this._inVisibleArea(this.$el, this.visibleRange, scrollTop)) {
+
+            if (this._inVisibleArea(this.$el, scrollTop)) {
                 this._lozyLoad()
             }
         },

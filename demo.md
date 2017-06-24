@@ -1,48 +1,50 @@
-# vt-button
-
-基于 vue 2 封装出的 Image 组件，重写img，目的支持webp， 优化图片，提高移动端性能。 点击查看[Demo](https://vue-tools.github.io/vt-image/#/demo)
-
-## Install
-
-```javascript
-npm i vt-image -S
-
-import Images from 'vt-image'
-
-// global install
-Vue.component('Images', Images)
-
-// scope install
-export default {
-    components: {
-        Images
-    }
-}
-```
-
-## Usage
-
 ```example
 <style>
+.vue-docs{
+    width: 100%;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.message {
+    margin-top: 100px;
+    margin-bottom: 400px;
+    font-size: 30px;
+}
 .img{
-    width: 100px;
-    height: 100px;
+    width: 186px;
+    min-height: 100px;
+    text-align: center;
     margin:10px; 
     display: block;
+    transition: height ease-in .5s;
 }
 </style>
 <template>
-    <Images ref="image" v-for="img in imgs" class="img" :src="img" />
-    <Images ref="image" v-for="img in imgs" class="img" lazy :src="img" /> 
+    <div class="wrapper">
+        <h3 class="message">vt-image懒加载图片demo</h3>
+        <Images ref="image" visibleRange="600" v-for="img in imgs" class="img" lazy :src="img" /> 
+    </div>
 </template>
 <script>
     import Images from 'vt-image'
+    
+    let imgs, count
+    
+    imgs = []
+    count = 0
+    
+    while(++count < 6) {
+        imgs[count - 1] = require(`assets/cat0${count}.jpg`)
+    }
+    
     export default {
         data(){
             return {
-                imgs: [
-                    require('assets/logo.png')
-                ]
+                imgs
             }
         },
         components: {
@@ -64,5 +66,3 @@ export default {
     }
 </script>
 ```
-
-
