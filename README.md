@@ -1,4 +1,4 @@
-# vt-button
+# vt-image
 
 基于 vue 2 封装出的 Image 组件，重写img，目的支持webp， 优化图片，提高移动端性能。 点击查看[Demo](https://vue-tools.github.io/vt-image/#/demo)
 
