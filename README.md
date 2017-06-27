@@ -14,7 +14,7 @@ Vue.component('Images', Images)
 
 // scope install
 export default {
-    components: {
+    components: { 
         Images
     }
 }
@@ -50,15 +50,27 @@ export default {
         },
         mounted(){
              this.lazyLoad()
-             window.addEventListener('scroll', this.lazyLoad.bind(this))
+             window.addEventListener('scroll', this.lazyLoad.bind(this), this.supportPassiveEvents() ? {passive: true} : false)
         },
         methods: {
             lazyLoad() {
-                setTimeout(_ => {
+                window.requestAnimationFrame = window.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60))
+                window.requestAnimationFrame(_ => {
                     this.$refs.image.forEach(img => {
                         img.lazyHandler(document.body.scrollTop || document.documentElement.scrollTop)
                     })
-                }, 100)
+                })
+            },
+            supportPassiveEvents(){
+                var supportsPassiveOption = false
+                try {
+                    var opts = Object.defineProperty({}, 'passive', {
+                        get: function() {
+                            supportsPassiveOption = true
+                        }
+                    })
+                    window.addEventListener('test', null, opts)
+                } catch (e) {}
             }
         }
     }

@@ -55,7 +55,7 @@
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
     "vue": "^2.1.10",
-    "vue-docs": "^1.2.9",
+    "vue-docs": "^1.4.3",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^9.7.0",
     "vue-style-loader": "^2.0.1",
@@ -70,7 +70,7 @@
     "codecov": "./node_modules/.bin/codecov",
     "copy": "rm -fr dist && cp -rf src dist",
     "docs": "./node_modules/.bin/vue-docs start",
-    "docs:build": "rm -fr docs && ./node_modules/.bin/vue-docs build && node gh-pages.js",
+    "docs:build": "rm -fr docs && ./node_modules/.bin/vue-docs build && node gh-pages.js $1",
     "compile": "npm run copy && node_modules/.bin/babel dist -d dist",
     "tag": "node .tag add $1",
     "tag:delete": "git tag -d $1 && git push origin --delete tag $1"

@@ -2,9 +2,9 @@ let fs = require('fs')
 let path = require('path')
 let ghpages = require('gh-pages')
 let homepage = require('./package.json').homepage
-let dir = path.resolve(path.join(__dirname, './build'))
+let dir = path.resolve(path.join(__dirname, './docs'))
 let docsConfFilePath = path.resolve(path.join(__dirname, './docs.conf.js'))
-    
+let message = process.argv.slice(2).pop() || 'update'    
 if (fs.existsSync(docsConfFilePath)) {
     let docsConfig = require(docsConfFilePath)
 
@@ -14,8 +14,11 @@ if (fs.existsSync(docsConfFilePath)) {
 }
 
 ghpages.publish(dir, {
-    message: 'Update docs'
+    message: message
 }, function (err) {
-    if (err) throw err
+    if (err) {
+        console.log(err)
+        throw err
+    }
     console.log('visit ' + homepage)
 })
