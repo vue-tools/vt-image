@@ -1,0 +1,3 @@
+var serviceWorkerOption = {"assets":["/img/cat01.1847d2d.jpg","/img/cat02.05a0d89.jpg","/img/cat03.e29e9b4.jpg","/img/cat04.7454942.jpg","/img/cat05.2ac39a2.jpg","/img/logo.c2a605f.png","/js/0.24f3505.js","/js/1.24f3505.js","/js/vendors.24f3505.js","/js/main.24f3505.js","/css/main.24f3505.css"]};
+        
+        !function(r){function t(o){if(e[o])return e[o].exports;var n=e[o]={exports:{},id:o,loaded:!1};return r[o].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var e={};return t.m=r,t.c=e,t.p="",t(0)}([function(r,t){"use strict"}]);
