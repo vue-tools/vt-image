@@ -1,13 +1,53 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <script src="https://cdn.staticfile.org/es6-promise/4.0.5/es6-promise.auto.min.js"></script>
-    <link rel="stylesheet" href="https://vuikit.github.io/vuikit-docs/static/css/vuikit.css">
-<link href="css/main.02cad72.css" rel="stylesheet"></head>
-<body>
-    <div id="app"></div>
-<script type="text/javascript" src="js/vendors.02cad72.js"></script><script type="text/javascript" src="js/main.02cad72.js"></script></body>
-</html>
+<head><link href="css/main.e7405d0.css" rel="stylesheet"></head>Html Webpack Plugin:
+<pre>
+  TypeError: Cannot read property '0' of undefined
+  
+  - ExternalModuleFactoryPlugin.js:19 
+    [vt-image]/[webpack]/lib/ExternalModuleFactoryPlugin.js:19:40
+  
+  - NormalModuleFactory.js:159 
+    [vt-image]/[vue-docs]/[webpack]/lib/NormalModuleFactory.js:159:3
+  
+  - Tapable.js:75 NormalModuleFactory.applyPluginsAsyncWaterfall
+    [vt-image]/[vue-docs]/[tapable]/lib/Tapable.js:75:69
+  
+  - NormalModuleFactory.js:144 NormalModuleFactory.create
+    [vt-image]/[vue-docs]/[webpack]/lib/NormalModuleFactory.js:144:8
+  
+  - Compilation.js:356 Compilation.process [as _addModuleChain]
+    [vt-image]/[vue-docs]/[webpack]/lib/Compilation.js:356:16
+  
+  - Compilation.js:424 Compilation.process [as addEntry]
+    [vt-image]/[vue-docs]/[webpack]/lib/Compilation.js:424:7
+  
+  - SingleEntryPlugin.js:24 Compiler.compiler.plugin
+    [vt-image]/[webpack]/lib/SingleEntryPlugin.js:24:16
+  
+  - Tapable.js:107 Compiler.applyPluginsParallel
+    [vt-image]/[vue-docs]/[tapable]/lib/Tapable.js:107:14
+  
+  - Compiler.js:394 Compiler.compile
+    [vt-image]/[vue-docs]/[webpack]/lib/Compiler.js:394:7
+  
+  - Compiler.js:203 Compiler.runAsChild
+    [vt-image]/[vue-docs]/[webpack]/lib/Compiler.js:203:7
+  
+  - compiler.js:70 
+    [vt-image]/[html-webpack-plugin]/lib/compiler.js:70:19
+  
+  - debuggability.js:300 Promise._execute
+    [vt-image]/[bluebird]/js/release/debuggability.js:300:9
+  
+  - promise.js:483 Promise._resolveFromExecutor
+    [vt-image]/[bluebird]/js/release/promise.js:483:18
+  
+  - promise.js:79 new Promise
+    [vt-image]/[bluebird]/js/release/promise.js:79:10
+  
+  - compiler.js:69 Object.compileTemplate
+    [vt-image]/[html-webpack-plugin]/lib/compiler.js:69:10
+  
+  - index.js:47 Compiler.<anonymous>
+    [vt-image]/[html-webpack-plugin]/index.js:47:40
+  
+</pre><script type="text/javascript" src="js/vendors.e7405d0.js"></script><script type="text/javascript" src="js/main.e7405d0.js"></script>
