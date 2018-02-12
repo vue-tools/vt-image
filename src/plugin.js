@@ -7,7 +7,7 @@ export default {
 
     Vue.directive('webp',{
       componentUpdated(el,binding,vnode) {
-        if (supportWebp && /\.webp$/.test(el.src)) {
+        if (supportWebp && !/\.webp$/.test(el.src)) {
           el.src = formatWebp(el.src)
         }
       }
