@@ -76,7 +76,6 @@
       _lozyLoad() {
         let img
         img = new Image()
-        console.log(this.path)
         img.src = this.path
 
         /* istanbul ignore next */

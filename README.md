@@ -63,7 +63,6 @@ export default {
                 window.requestAnimationFrame = window.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60))
                 window.requestAnimationFrame(_ => {
                     this.$refs.image.forEach(img => {
-                      console.log(img.lazyHandler)
                         img.lazyHandler(document.body.scrollTop || document.documentElement.scrollTop)
                     })
                 })
