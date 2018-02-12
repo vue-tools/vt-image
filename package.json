@@ -1,11 +1,11 @@
 {
   "name": "vt-image",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/vue-tools/vt-image"
   },
-  "main": "dist/index.vue",
+  "main": "dist/index.js",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vue-tools/vt-image/issues"
@@ -45,6 +45,7 @@
     "karma": "^1.5.0",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-promise": "^0.1.0",
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
@@ -67,7 +68,7 @@
   },
   "scripts": {
     "test": "cross-env BABEL_ENV=test ./node_modules/karma/bin/karma start ./tests/karma.conf.js",
-    "prepublish": "npm run test && npm run compile",
+    "prepublish": "npm run compile",
     "codecov": "./node_modules/.bin/codecov",
     "copy": "rm -fr dist && cp -rf src dist",
     "docs": "./node_modules/.bin/vue-docs start",
