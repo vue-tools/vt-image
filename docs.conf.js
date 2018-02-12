@@ -6,8 +6,9 @@ module.exports = {
     webpack: {
         resolve: {
             alias: {
-                'vt-image': path.resolve(__dirname, 'src'),
-                'assets': path.resolve(__dirname, 'tests/assets')
+                'vt-image': path.resolve(__dirname, 'src/index.js'),
+                'assets': path.resolve(__dirname, 'tests/assets'),
+                'vue': path.resolve(__dirname, 'node_modules/vue/dist/vue.runtime.js'),
             }
         },
         plugins: [
@@ -17,7 +18,7 @@ module.exports = {
                     quality: 80
                 }
             })
-        ] 
+        ]
     },
     md: { dir: './' },
     vue: { dir: './docs' }

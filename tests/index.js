@@ -30,23 +30,9 @@ describe('vt-image', () => {
         expect(vm.$el.src.indexOf('logo') > -1).to.equal(true)
     })
 
-    it('image get webp path', () => {
-        let Control = Vue.extend(Images)
-        let vm = new Control({
-            propsData: {
-                src: require('./assets/logo.png')
-            }
-        }).$mount()
-
-        let path = vm._getPath(true)
-
-        expect(path.indexOf('logo') > -1).to.equal(true)
-        expect(path.indexOf('webp') > -1).to.equal(true)
-    })
-
     it('image method: _inVisibleArea', () => {
         let Control, vm, mockEle
-        
+
         Control = Vue.extend(Images)
         vm = new Control({
             propsData: {
@@ -54,7 +40,7 @@ describe('vt-image', () => {
                 src: require('./assets/logo.png')
             }
         }).$mount()
-        
+
         mockEle = { clientHeight: 100, offsetTop: 300 }
         // offsetTop - visibleRange < scrollTop && scrollTop < offsetTop + visibleRange + height
         expect(vm._inVisibleArea(mockEle, 0)).to.equal(true)
@@ -76,7 +62,7 @@ describe('vt-image', () => {
             expect(vm.loading, false)
         }, 1000)
     })
-    
+
     it('image method: lazyHandler', () => {
         let Control = Vue.extend(Images)
         let vm = new Control({
@@ -85,7 +71,7 @@ describe('vt-image', () => {
                 src: require('./assets/logo.png')
             }
         }).$mount()
-        
+
         expect(vm.lazyHandler()).to.equal(false)
     })
 })

@@ -18,7 +18,7 @@
     width: 186px;
     min-height: 100px;
     text-align: center;
-    margin:10px; 
+    margin:10px;
     display: block;
     transition: height ease-in .5s;
 }
@@ -26,21 +26,22 @@
 <template>
     <div class="wrapper">
         <h3 class="message">vt-image懒加载图片demo</h3>
-        <Images ref="image" visibleRange="600" v-for="img in imgs" class="img" lazy :src="img" /> 
+        <Images ref="image"  v-for="img in imgs" class="img" lazy :src="img" distance="600"/>
     </div>
 </template>
 <script>
-    import Images from 'vt-image'
-    
+    import Vue from 'vue'
+    import {Images} from 'vt-image'
+
     let imgs, count
-    
+
     imgs = []
     count = 0
-    
+
     while(++count < 6) {
         imgs[count - 1] = require(`assets/cat0${count}.jpg`)
     }
-    
+
     export default {
         data(){
             return {
@@ -52,7 +53,7 @@
         },
         mounted(){
              this.lazyLoad()
-             window.addEventListener('scroll', this.lazyLoad.bind(this), this.supportPassiveEvents() ? {passive: true} : false)        
+             window.addEventListener('scroll', this.lazyLoad.bind(this), this.supportPassiveEvents() ? {passive: true} : false)
         },
         methods: {
             lazyLoad() {

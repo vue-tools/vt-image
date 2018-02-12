@@ -1,96 +1,89 @@
 <style src="./style.css"></style>
 <template>
-    <img class="vt-image" :src="realPath" />
+  <img class="vt-image" :src="realPath" />
 </template>
 <script>
-/* istanbul ignore next */
-var isSupportWebp = detectWebp()
+  /* istanbul ignore next */
+  import { supportWebp,isUrl,defaultWebpFormat } from './utils'
 
-export default {
+  export default {
     props: {
-        lazy: {
-            type: Boolean,
-            default: false
-        },
-        lazySrc: {
-            type: String,
-            default: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC'
-        },
-        visibleRange: {
-            type: [String, Number],
-            default: window.innerHeight, // window visible height * 1
-            validator: function (value) {
-                /* istanbul ignore next */
-                return value > 50
-            }
-        },
-        src: {
-            type: String,
-            required: true
+      webp: {
+        type: Boolean,
+        default: false
+      },
+      lazy: {
+        type: Boolean,
+        default: false
+      },
+      lazySrc: {
+        type: String,
+        default: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC'
+      },
+      webpFormat: {
+        type: Function,
+        default: defaultWebpFormat
+      },
+      disatance: {
+        type: [String,Number],
+        default: window.innerHeight, // window visible height * 1
+        validator: function (value) {
+          /* istanbul ignore next */
+          return value > 20
         }
+      },
+      src: {
+        type: String,
+        required: true
+      }
     },
     data() {
-        return {
-            loading: this.lazy,
-            path: this._getPath(isSupportWebp)
-        }
+      return {
+        loading: this.lazy
+      }
     },
     computed: {
-        realPath() {
-            return this.loading ? this.lazySrc : this.path
+      path() {
+        if (this.webp) {
+          return supportWebp ? this.webpFormat(this.src) : this.src
+        } else {
+          return this.src
         }
+      },
+      realPath() {
+        return this.loading ? this.lazySrc : this.path
+      }
     },
     methods: {
-        _inVisibleArea(el, scrollTop) {
-            let height, offsetTop, visibleRange
+      _inVisibleArea(el,scrollTop) {
+        let height,offsetTop, distance
 
-            visibleRange = this.visibleRange
-            offsetTop = el.offsetTop
-            height = el.clientHeight
-            return offsetTop - visibleRange < scrollTop && scrollTop < offsetTop + visibleRange + height
-        },
-        lazyHandler(scrollTop) {
-            if (!this.lazy) {
-                return false
-            }
-            /* istanbul ignore next */
+        distance = this.disatance
+        offsetTop = el.offsetTop
+        height = el.clientHeight
 
-            if (this._inVisibleArea(this.$el, scrollTop)) {
-                this._lozyLoad()
-            }
-        },
-        _lozyLoad() {
-            let img
-            img = new Image()
-            img.src = this.path
-            
-            /* istanbul ignore next */
-            img.onload = _ => {
-                this.loading = false
-            }
-        },
-        _getPath(supportWeb) {
-            return isUrl(this.src) ? this.src : supportWeb ? this.src + '.webp' : this.src
+        return offsetTop - distance < scrollTop && scrollTop < offsetTop + distance + height
+      },
+      lazyHandler(scrollTop) {
+        if (!this.lazy) {
+          return false
         }
-    }
-}
-
-function detectWebp() {
-    var canvas, supportCanvas
-
-    canvas = document.createElement('canvas')
-    supportCanvas = canvas.getContext && canvas.getContext('2d')
-
-    if (supportCanvas) {
-        canvas.width = canvas.height = 1
-        return canvas.toDataURL('image/webp', 0.01).indexOf('image/webp') != -1
-    } else {
         /* istanbul ignore next */
-        return false
-    }
-}
+        if (this._inVisibleArea(this.$el,scrollTop)) {
+          this._lozyLoad()
+        }
+      },
+      _lozyLoad() {
+        let img
+        img = new Image()
+        console.log(this.path)
+        img.src = this.path
 
-function isUrl(url) {
-    return /^(\/\/|https?)/.test(url)
-}
+        /* istanbul ignore next */
+        img.onload = _ => {
+          this.loading = false
+        }
+      }
+    }
+  }
 </script>
