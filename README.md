@@ -12,11 +12,20 @@
 
 ```javascript
 npm i vt-image -S
+```
 
-import Images from 'vt-image'
+## use
+
+```javascript
+import {Images, webpPlugin} from 'vt-image'
 
 // global install
 Vue.component('Images', Images)
+Vue.use(webpPlugin, {
+  formatWebp(url) {
+    return url + '.webp'
+  }
+})
 
 // scope install
 export default {
