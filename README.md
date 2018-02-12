@@ -12,7 +12,11 @@
 
 ```javascript
 npm i vt-image -S
+```
 
+## use
+
+```javascript
 import {Images, webpPlugin} from 'vt-image'
 
 // global install
