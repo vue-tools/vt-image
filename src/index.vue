@@ -4,9 +4,17 @@
 </template>
 <script>
   /* istanbul ignore next */
-  import { supportWebp,isUrl,defaultWebpFormat } from './utils'
+  import {
+    supportWebp,
+    isUrl,
+    defaultWebpFormat,
+    getScrollElement,
+    supportPassive,
+    debounce
+  } from './utils'
 
   export default {
+    name: 'vt-image',
     props: {
       webp: {
         type: Boolean,
@@ -37,6 +45,29 @@
         required: true
       }
     },
+    data(){
+      return {
+        register: false,
+        element: null,
+        scroll:  null
+      }
+    },
+    mounted() {
+      if (!this.register) {
+        const element = getScrollElement(this.$el, 'y')
+        this.element = element
+        this.scroll = () => {
+          debounce(this.lazyHandler())
+        }
+        element.addEventListener('scroll', this.scroll, supportPassive ? { passive: true } : false)
+        this.register = true
+      }
+    },
+    destroyed() {
+      this.register = false
+      this.element.removeEventListener('scroll', this.scroll)
+      this.element = null
+    },
     data() {
       return {
         loading: this.lazy
@@ -56,7 +87,7 @@
     },
     methods: {
       _inVisibleArea(el,scrollTop) {
-        let height,offsetTop, distance
+        let height,offsetTop,distance
 
         distance = this.disatance
         offsetTop = el.offsetTop
@@ -64,12 +95,13 @@
 
         return offsetTop - distance < scrollTop && scrollTop < offsetTop + distance + height
       },
-      lazyHandler(scrollTop) {
+      lazyHandler() {
         if (!this.lazy) {
           return false
         }
         /* istanbul ignore next */
-        if (this._inVisibleArea(this.$el,scrollTop)) {
+        const scrollTop = this.element.scrollTop || this.element.scrollY
+        if (this._inVisibleArea(this.$el, scrollTop)) {
           this._lozyLoad()
         }
       },

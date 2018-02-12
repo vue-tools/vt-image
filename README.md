@@ -47,8 +47,8 @@ export default {
 }
 </style>
 <template>
-    <Images ref="image" v-for="img in imgs" class="img" :src="img" />
-    <Images ref="image" v-for="img in imgs" class="img" lazy :src="img" />
+    <Images v-for="img in imgs" class="img" :src="img" />
+    <Images v-for="img in imgs" class="img" lazy :src="img" />
 </template>
 <script>
     import {Images} from 'vt-image'
@@ -62,31 +62,6 @@ export default {
         },
         components: {
             Images
-        },
-        mounted(){
-             this.lazyLoad()
-             window.addEventListener('scroll', this.lazyLoad.bind(this), this.supportPassiveEvents() ? {passive: true} : false)
-        },
-        methods: {
-            lazyLoad() {
-                window.requestAnimationFrame = window.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60))
-                window.requestAnimationFrame(_ => {
-                    this.$refs.image.forEach(img => {
-                        img.lazyHandler(document.body.scrollTop || document.documentElement.scrollTop)
-                    })
-                })
-            },
-            supportPassiveEvents(){
-                var supportsPassiveOption = false
-                try {
-                    var opts = Object.defineProperty({}, 'passive', {
-                        get: function() {
-                            supportsPassiveOption = true
-                        }
-                    })
-                    window.addEventListener('test', null, opts)
-                } catch (e) {}
-            }
         }
     }
 </script>

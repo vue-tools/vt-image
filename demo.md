@@ -26,7 +26,7 @@
 <template>
     <div class="wrapper">
         <h3 class="message">vt-image懒加载图片demo</h3>
-        <Images ref="image"  v-for="img in imgs" class="img" lazy :src="img" distance="600"/>
+        <Images ref="image"  v-for="img in imgs" class="img" webp lazy :src="img" distance="600"/>
     </div>
 </template>
 <script>
@@ -50,31 +50,6 @@
         },
         components: {
             Images
-        },
-        mounted(){
-             this.lazyLoad()
-             window.addEventListener('scroll', this.lazyLoad.bind(this), this.supportPassiveEvents() ? {passive: true} : false)
-        },
-        methods: {
-            lazyLoad() {
-                window.requestAnimationFrame = window.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60))
-                window.requestAnimationFrame(_ => {
-                    this.$refs.image.forEach(img => {
-                        img.lazyHandler(document.body.scrollTop || document.documentElement.scrollTop)
-                    })
-                })
-            },
-            supportPassiveEvents(){
-                var supportsPassiveOption = false
-                try {
-                    var opts = Object.defineProperty({}, 'passive', {
-                        get: function() {
-                            supportsPassiveOption = true
-                        }
-                    })
-                    window.addEventListener('test', null, opts)
-                } catch (e) {}
-            }
         }
     }
 </script>
