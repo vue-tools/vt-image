@@ -1,6 +1,6 @@
 {
   "name": "vt-image",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/vue-tools/vt-image"
@@ -68,7 +68,7 @@
   },
   "scripts": {
     "test": "cross-env BABEL_ENV=test ./node_modules/karma/bin/karma start ./tests/karma.conf.js",
-    "prepublish": "npm run test && npm run compile",
+    "prepublish": "npm run compile",
     "codecov": "./node_modules/.bin/codecov",
     "copy": "rm -fr dist && cp -rf src dist",
     "docs": "./node_modules/.bin/vue-docs start",
