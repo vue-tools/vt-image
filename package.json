@@ -68,7 +68,7 @@
   },
   "scripts": {
     "test": "cross-env BABEL_ENV=test ./node_modules/karma/bin/karma start ./tests/karma.conf.js",
-    "prepublish": "npm run compile",
+    "prepublish": "npm run test && npm run compile",
     "codecov": "./node_modules/.bin/codecov",
     "copy": "rm -fr dist && cp -rf src dist",
     "docs": "./node_modules/.bin/vue-docs start",

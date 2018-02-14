@@ -10,7 +10,9 @@
     defaultWebpFormat,
     getScrollElement,
     supportPassive,
-    debounce
+    throttle,
+    getOffset,
+    getScrollPosition
   } from './utils'
 
   export default {
@@ -45,27 +47,28 @@
         required: true
       }
     },
-    data(){
+    data() {
       return {
         register: false,
         element: null,
-        scroll:  null
+        scroll: null
       }
     },
     mounted() {
       if (!this.register) {
-        const element = getScrollElement(this.$el, 'y')
+        const element = getScrollElement(this.$el,'y')
         this.element = element
         this.scroll = () => {
-          debounce(this.lazyHandler())
+          throttle(this.lazyHandler.bind(this), 500)()
         }
-        element.addEventListener('scroll', this.scroll, supportPassive ? { passive: true } : false)
+        this.scroll()
+        element.addEventListener('scroll',this.scroll,supportPassive ? { passive: true } : false)
         this.register = true
       }
     },
     destroyed() {
       this.register = false
-      this.element.removeEventListener('scroll', this.scroll)
+      this.element.removeEventListener('scroll',this.scroll)
       this.element = null
     },
     data() {
@@ -90,7 +93,8 @@
         let height,offsetTop,distance
 
         distance = this.disatance
-        offsetTop = el.offsetTop
+        offsetTop = getOffset(el, this.element).top // 获取相对scrollElement的top值
+
         height = el.clientHeight
 
         return offsetTop - distance < scrollTop && scrollTop < offsetTop + distance + height
@@ -100,7 +104,7 @@
           return false
         }
         /* istanbul ignore next */
-        const scrollTop = this.element.scrollTop || this.element.scrollY
+        const scrollTop = getScrollPosition(this.element).top
         if (this._inVisibleArea(this.$el, scrollTop)) {
           this._lozyLoad()
         }
