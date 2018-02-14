@@ -82,13 +82,50 @@ export const throttle = (fn,delay = 500) => {
 
     if (last && now - last < delay) {
       clearTimeout(timer)
-      timer = setTimeout(function() {
+      timer = setTimeout(function () {
         last = now
-        fn.apply(context, args)
-      }, delay)
+        fn.apply(context,args)
+      },delay)
     } else {
       last = now
       fn.apply(context,args)
     }
   }
 }
+
+
+export const getOffset = (ele,relativeElement = document.documentElement) => {
+  if(relativeElement === window) {
+    relativeElement = document.documentElement || document.body
+  }
+  let offset = {
+    top: 0,
+    left: 0
+  }
+  let elRect,relativeRect,parent
+
+  if (typeof ele.getBoundingClientRect === 'function') {
+    elRect = ele.getBoundingClientRect()
+    relativeRect = relativeElement.getBoundingClientRect()
+
+    offset.top = elRect.top - relativeRect.top
+    offset.left = elRect.left - relativeRect.left
+  }
+  return offset
+}
+
+export const getScrollPosition = el => {
+  if(el === window) {
+    el = document.documentElement || document.body
+  }
+
+  const isTop = el.scrollTop !== void 0
+
+  return {
+    top: isTop ? el.scrollTop : el.scrollY,
+    left: isTop ? el.scrollLeft : el.scrollX
+  }
+}
+
+export const noop = () => {}
+
